@@ -27,7 +27,8 @@ RUN apk --update -t --no-cache add tzdata && \
     libffi-dev \
     freetype-dev \
     sqlite-dev \
-    libmemcached-devel \
+    libmemcached \
+    libmemcached-dev \
     libjpeg-turbo-dev && \
     docker-php-ext-configure gd \
       --with-gd \
