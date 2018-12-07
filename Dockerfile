@@ -8,6 +8,7 @@ RUN apk --update -t --no-cache add tzdata && \
     echo "Asia/Shanghai" > /etc/timezone && \
     apk update && apk upgrade && \
     apk add --no-cache \
+    gcc \
     autoconf \
     libcurl \
     augeas-dev \
