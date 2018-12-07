@@ -8,15 +8,9 @@ RUN apk --update -t --no-cache add tzdata && \
     echo "Asia/Shanghai" > /etc/timezone && \
     apk update && apk upgrade && \
     apk add --no-cache \
-    openssh-client \
     libcurl \
     augeas-dev \
     libressl-dev \
-    ca-certificates \
-    dialog \
-    autoconf \
-    make \
-    gcc \
     musl-dev \
     linux-headers \
     libmcrypt-dev \
