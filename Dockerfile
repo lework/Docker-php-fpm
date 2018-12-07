@@ -39,7 +39,7 @@ RUN apk --update -t --no-cache add tzdata && \
     pecl install mongodb && \
     pecl install redis && \
     docker-php-source delete && \
-    apk del .build-deps   && pecl update-channels  && rm -rf 
+    apk del .build-deps  && \
     rm -rf /tmp/pear/* /var/cache/apk/* ~/.pearrc && \
     docker-php-ext-enable apcu redis xdebug mongodb memcached && \
     mkdir ${WORKSPACE}
