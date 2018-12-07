@@ -10,9 +10,11 @@ RUN apk --update -t --no-cache add tzdata && \
     gcc \
     make \
     autoconf \
-    libcurl \
-    augeas-dev \
+    sqlite-dev \
     libressl-dev \
+    libmemcached \
+    libcurl && \
+    apk add --no-cache augeas-dev \
     musl-dev \
     linux-headers \
     libmcrypt-dev \
@@ -22,8 +24,6 @@ RUN apk --update -t --no-cache add tzdata && \
     libxslt-dev \
     libffi-dev \
     freetype-dev \
-    sqlite-dev \
-    libmemcached \
     libmemcached-dev \
     libjpeg-turbo-dev && \
     docker-php-ext-configure gd \
