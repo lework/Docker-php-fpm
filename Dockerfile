@@ -6,8 +6,7 @@ ARG WORKSPACE=/Microservices
 RUN apk --update -t --no-cache add tzdata && \
     ln -snf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     echo "Asia/Shanghai" > /etc/timezone && \
-    apk update && apk upgrade && \
-    apk add --no-cache \
+    apk add --no-cache --virtual .build-deps \
     gcc \
     make \
     autoconf \
@@ -40,7 +39,8 @@ RUN apk --update -t --no-cache add tzdata && \
     pecl install mongodb && \
     pecl install redis && \
     docker-php-source delete && \
-    rm -rf /tmp/pear/* /var/cache/apk/* && \
+    apk del .build-deps   && pecl update-channels  && rm -rf 
+    rm -rf /tmp/pear/* /var/cache/apk/* ~/.pearrc && \
     docker-php-ext-enable apcu redis xdebug mongodb memcached && \
     mkdir ${WORKSPACE}
     
