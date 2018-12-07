@@ -9,6 +9,7 @@ RUN apk --update -t --no-cache add tzdata && \
     apk update && apk upgrade && \
     apk add --no-cache \
     gcc \
+    make \
     autoconf \
     libcurl \
     augeas-dev \
