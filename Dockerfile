@@ -42,6 +42,8 @@ RUN apk --update -t --no-cache add tzdata && \
     apk del .build-deps  && \
     rm -rf /tmp/pear/* /var/cache/apk/* ~/.pearrc && \
     docker-php-ext-enable apcu redis xdebug mongodb memcached && \
-    mkdir ${WORKSPACE}
+    mkdir ${WORKSPACE} && \
+    mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" && \
+    sed -i 's#;date.timezone =#date.timezone = Asia/Shanghai#g' "$PHP_INI_DIR/php.ini"
     
 VOLUME ${WORKSPACE}
