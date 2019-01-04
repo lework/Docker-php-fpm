@@ -31,7 +31,7 @@ RUN apk --update -t --no-cache add tzdata && \
       --with-freetype-dir=/usr/include/ \
       --with-png-dir=/usr/include/ \
       --with-jpeg-dir=/usr/include/ && \
-    docker-php-ext-install iconv pdo_mysql pdo_sqlite mysqli gd exif intl xsl json soap dom zip opcache && \
+    docker-php-ext-install iconv pdo_mysql pdo_sqlite mysqli gd gd2 mbstring bcmath exif intl xsl json soap dom zip opcache && \
     pecl install xdebug-2.6.0 && \
     pecl install apcu && \
     pecl install igbinary && \
