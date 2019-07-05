@@ -75,4 +75,4 @@ VOLUME ${WORKSPACE}
 
 WORKDIR ${WORKSPACE}
 
-ENTRYPOINT ['/docker-run.sh']
+ENTRYPOINT ["/docker-run.sh"]
