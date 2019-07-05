@@ -10,7 +10,7 @@ ENV WORKSPACE=${WORKSPACE} \
 RUN apk --update -t --no-cache add tzdata \
     && ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime \
     && echo "${TIMEZONE}" > /etc/timezone \
-	\
+    \
     && apk add --no-cache --virtual .build-deps \
     gcc \
     make \
@@ -18,8 +18,8 @@ RUN apk --update -t --no-cache add tzdata \
     sqlite-dev \
     libressl-dev \
     libmemcached \
-    libcurl && \
-    apk add --no-cache augeas-dev \
+    libcurl \
+    && apk add --no-cache augeas-dev \
     musl-dev \
     linux-headers \
     libmcrypt-dev \
@@ -43,26 +43,26 @@ RUN apk --update -t --no-cache add tzdata \
     && pecl install memcached \
     && pecl install mongodb \
     && pecl install redis \
-	\
+    \
     && docker-php-source delete \
-    && apk del .build-dep \
+    && apk del --no-network .build-deps \
     && rm -rf /tmp/pear/* /var/cache/apk/* ~/.pearrc \
     && docker-php-ext-enable apcu redis xdebug mongodb memcached \
-	\
-	&& mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
+    \
+    && mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini" \
     && sed -i 's#;date.timezone =#date.timezone = Asia/Shanghai#g' "$PHP_INI_DIR/php.ini" \
     && sed -i 's#; max_input_vars = 1000#max_input_vars = 2000#g' "$PHP_INI_DIR/php.ini" \
     && sed -i 's#post_max_size = 8M#post_max_size = 200M#g' "$PHP_INI_DIR/php.ini" \
     && sed -i 's#upload_max_filesize = 2M#upload_max_filesize = 200M#g' "$PHP_INI_DIR/php.ini" \
-	&& sed -i 's#;pm.status_path = /status#pm.status_path = /fpm-status#g' /usr/local/etc/php-fpm.d/www.conf \
-	&& sed -i 's#;ping.path = /ping#ping.path = /fpm-ping#g' /usr/local/etc/php-fpm.d/www.conf \
-	\
+    && sed -i 's#;pm.status_path = /status#pm.status_path = /fpm-status#g' /usr/local/etc/php-fpm.d/www.conf \
+    && sed -i 's#;ping.path = /ping#ping.path = /fpm-ping#g' /usr/local/etc/php-fpm.d/www.conf \
+    \
     && mkdir -p ${WORKSPACE} \
-	\
-	&& apk add nginx curl \
-	&& ln -sf /dev/stdout /var/log/nginx/access.log \
+    \
+    && apk add nginx curl \
+    && ln -sf /dev/stdout /var/log/nginx/access.log \
     && ln -sf /dev/stderr /var/log/nginx/error.log \
-	&& echo '<?phpinfo()>' >> ${WORKSPACE}/index.php
+    && echo '<?phpinfo()>' >> ${WORKSPACE}/index.php
 
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY docker-run.sh /docker-run.sh
