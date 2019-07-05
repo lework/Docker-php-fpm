@@ -45,7 +45,7 @@ RUN apk --update -t --no-cache add tzdata \
     && pecl install redis \
 	\
     && docker-php-source delete \
-    && apk del --no-network .build-dep \
+    && apk del .build-dep \
     && rm -rf /tmp/pear/* /var/cache/apk/* ~/.pearrc \
     && docker-php-ext-enable apcu redis xdebug mongodb memcached \
 	\
