@@ -1,6 +1,9 @@
 #!/bin/sh
 
-[ -n "$WORKSPACE" ] && sed -i "s#root /src;#root $WORKSPACE;#g" /etc/nginx/nginx.conf
+if [ -n "$WORKSPACE" ]; then
+   sed -i "s#root /src;#root $WORKSPACE;#g" /etc/nginx/nginx.conf
+   chown www-data.www-data -R $WORKSPACE
+fi
 
 php-fpm --force-stderr --daemonize
 status=$?

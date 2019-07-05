@@ -16,7 +16,6 @@ RUN apk --update -t --no-cache add tzdata \
     make \
     autoconf \
     sqlite-dev \
-    libressl-dev \
     libmemcached \
     libcurl \
     && apk add --no-cache augeas-dev \
@@ -26,6 +25,7 @@ RUN apk --update -t --no-cache add tzdata \
     libpng-dev \
     icu-dev \
     libpq \
+    libressl-dev \
     libxslt-dev \
     libffi-dev \
     freetype-dev \
@@ -62,12 +62,17 @@ RUN apk --update -t --no-cache add tzdata \
     && apk add nginx curl \
     && ln -sf /dev/stdout /var/log/nginx/access.log \
     && ln -sf /dev/stderr /var/log/nginx/error.log \
-    && echo '<?phpinfo()>' >> ${WORKSPACE}/index.php
+    && echo ''<?php phpinfo(); ?>' > ${WORKSPACE}/index.php
 
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY docker-run.sh /docker-run.sh
 
+RUN chmod +x /docker-run.sh
+
+EXPOSE 80
 
 VOLUME ${WORKSPACE}
 
-CMD ['/docker-run.sh']
+WORKDIR ${WORKSPACE}
+
+ENTRYPOINT ['/docker-run.sh']
