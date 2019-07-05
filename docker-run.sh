@@ -1,6 +1,7 @@
 #!/bin/sh
 
-	
+[ -n "$WORKSPACE" ] && sed -i "s#root /src;#root $WORKSPACE;#g" /etc/nginx/nginx.conf
+
 php-fpm --force-stderr --daemonize
 status=$?
 if [ $status -ne 0 ]; then
