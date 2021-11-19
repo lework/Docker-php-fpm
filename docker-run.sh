@@ -1,8 +1,17 @@
 #!/bin/sh
 
+trap _term INT TERM QUIT
+
+_term() { 
+  echo "Caught SIGTERM signal!" 
+  kill -INT `cat /usr/local/var/run/php-fpm.pid`
+  kill -TERM `cat /var/run/nginx.pid`
+  exit
+}
+
 if [ -n "$WORKSPACE" ]; then
-   sed -i "s#root /src;#root $WORKSPACE;#g" /etc/nginx/nginx.conf
-   chown www-data.www-data -R $WORKSPACE
+  sed -i "s#root /src;#root $WORKSPACE;#g" /etc/nginx/nginx.conf
+  chown www-data.www-data -R $WORKSPACE /var/lib/nginx/tmp/
 fi
 
 php-fpm --force-stderr --daemonize

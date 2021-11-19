@@ -8,7 +8,8 @@
 ## Versioning
 | Docker Tag | Git Release | Nginx Version | PHP Version | Alpine Version |
 |-----|-------|-----|--------|--------|
-| latest/7.1.30-nginx-alpine3.9 | Master Branch |1.14.2 | 7.1.30 | 3.9 |
+| latest/7.3.33-fpm-alpine3.13 | Master Branch | 1.18.0 | 7.3.33 | 3.13 |
+| 7.3.33-fpm-alpine3.13 | 7.3.33-fpm-alpine3.13 | 1.18.0 | 7.3.33 | 3.13 |
 | 7.1.30-nginx-alpine3.9 | 7.1.30-nginx-alpine3.9 |1.14.2 | 7.1.30 | 3.9 |
 | 7.1.24-fpm-alpine3.8 | 7.1.24-fpm-alpine3.8 | | 7.1.30 | 3.8 |
 
@@ -16,5 +17,5 @@
 ## Quick Start
 
 ```
-docker run -tid -v ./php/src:/src -p 80:80 lework/php-fpm:latest
+docker run -tid -v ./php/src:/src -p 80:80 --cap-add sys_ptrace lework/php-fpm:latest
 ```
